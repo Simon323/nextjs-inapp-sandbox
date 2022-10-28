@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import JWT from "jsonwebtoken";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+
+import Checkbox from "components/checkbox";
+import Highlighter from "components/highlighter";
+import JwtInput from "components/jwtInput";
 
 function JwtPage() {
   const [token, setToken] = useState<string>(
@@ -9,8 +12,6 @@ function JwtPage() {
   const [header, setHeader] = useState<JWT.JwtHeader>();
   const [payload, setPayload] = useState<JWT.JwtPayload | string>();
   const [signature, setSignature] = useState<string>();
-
-  const codeString = "(num) => num + 1";
 
   useEffect(() => {
     const decoded = JWT.decode(token, {
@@ -26,54 +27,19 @@ function JwtPage() {
   }, [token]);
 
   return (
-    <div className="flex flex-wrap px-10 py-10">
-      <div className="bg-red-50 flex-grow flex-shrink-0 basis-1/2">
-        <textarea
-          id="message"
-          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300"
-          placeholder="Your message..."
-          rows={10}
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
-        ></textarea>
+    <div className="flex flex-col">
+      <div className="grid gap-6 md:grid-cols-3 px-10 py-10">
+        <Checkbox />
       </div>
-      <div className="bg-blue-100 flex-grow flex-shrink-0 basis-1/2 w-[100px] p-2">
-        <SyntaxHighlighter
-          language="json"
-          wrapLongLines={true}
-          lineProps={{
-            style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-          }}
-        >
-          {JSON.stringify(header, null, 2)}
-        </SyntaxHighlighter>
-        <SyntaxHighlighter
-          language="json"
-          wrapLongLines={true}
-          lineProps={{
-            style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-          }}
-        >
-          {JSON.stringify(payload, null, 2)}
-        </SyntaxHighlighter>
-        <SyntaxHighlighter
-          language="text"
-          wrapLongLines={true}
-          lineProps={{
-            style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-          }}
-        >
-          {signature ? signature : ""}
-        </SyntaxHighlighter>
-        {/* <pre className="break-words whitespace-pre-wrap break-normal">
-          {JSON.stringify(header, null, 2)}
-        </pre>
-        <pre className="break-words whitespace-pre-wrap break-normal">
-          {JSON.stringify(payload, null, 2)}
-        </pre> */}
-        {/* <pre className="break-words whitespace-pre-wrap break-normal">
-          <p>{signature}</p>
-        </pre> */}
+      <div className="flex flex-wrap px-10 py-10">
+        <div className="bg-red-50 flex-grow flex-shrink-0 basis-1/2">
+          <JwtInput token={token} onChange={setToken} />
+        </div>
+        <div className="bg-blue-100 flex-grow flex-shrink-0 basis-1/2 w-[100px] p-2">
+          <Highlighter payload={JSON.stringify(header, null, 2)} />
+          <Highlighter payload={JSON.stringify(payload, null, 2)} />
+          <Highlighter payload={signature ? signature : ""} />
+        </div>
       </div>
     </div>
   );
