@@ -7,10 +7,12 @@
   },
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.9",
+    "@types/react-syntax-highlighter": "^15.5.5",
     "jsonwebtoken": "^8.5.1",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-syntax-highlighter": "^15.5.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
