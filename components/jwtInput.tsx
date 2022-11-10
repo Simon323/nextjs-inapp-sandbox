@@ -9,7 +9,7 @@ function JwtInput({ token, onChange }: Props) {
   return (
     <textarea
       id="message"
-      className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300"
+      className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-full"
       placeholder="Your message..."
       rows={10}
       value={token}
