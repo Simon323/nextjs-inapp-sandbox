@@ -7,7 +7,11 @@ import Checkbox from "components/checkbox";
 import Highlighter from "components/highlighter";
 import JwtInput from "components/jwtInput";
 import TokenValidState from "components/tokenValidState";
-import { detectSubtokens } from "utils/appleUtils";
+import {
+  detectSubtokens,
+  getAppleTransactionInfo,
+  validatePurchase,
+} from "utils/appleUtils";
 
 function JwtPage() {
   const [token, setToken] = useState<string>(
@@ -38,12 +42,22 @@ function JwtPage() {
           update(decoded.payload as JWT.JwtPayload, x.path, () => x.payload);
         });
       }
-
-      console.log(subtokens);
     } else {
       setIsValidToken(false);
     }
   }, [token]);
+
+  useEffect(() => {
+    const fetchData = async (res: AppleTransaction) => {
+      let response = await await validatePurchase(res);
+      console.log(response);
+    };
+
+    if (typeof payload == "object") {
+      const res = getAppleTransactionInfo(payload);
+      // fetchData(res);
+    }
+  }, [payload]);
 
   return (
     <div className="flex flex-col">
@@ -103,7 +117,7 @@ function JwtPage() {
           </details>
           <details>
             <summary className="question py-3 px-4 cursor-pointer select-none w-full">
-              Validate Subscription
+              Validate Purchase
             </summary>
             <p className="pt-1 pb-3 px-4">TODO</p>
           </details>
