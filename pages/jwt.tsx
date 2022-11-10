@@ -4,6 +4,7 @@ import JWT from "jsonwebtoken";
 import Checkbox from "components/checkbox";
 import Highlighter from "components/highlighter";
 import JwtInput from "components/jwtInput";
+import TokenValidState from "components/tokenValidState";
 
 function JwtPage() {
   const [token, setToken] = useState<string>(
@@ -15,6 +16,7 @@ function JwtPage() {
   const [displayHeader, setDisplayHeader] = useState<boolean>(false);
   const [displayPayload, setDisplayPayload] = useState(true);
   const [displaySignature, setDisplaySignature] = useState(false);
+  const [isValidToken, setIsValidToken] = useState<boolean | undefined>();
 
   useEffect(() => {
     const decoded = JWT.decode(token, {
@@ -25,6 +27,9 @@ function JwtPage() {
       setHeader(decoded.header);
       setPayload(decoded.payload);
       setSignature(decoded.signature);
+      setIsValidToken(true);
+    } else {
+      setIsValidToken(false);
     }
   }, [token]);
 
@@ -46,6 +51,9 @@ function JwtPage() {
           checked={displaySignature}
           fnChange={(e) => setDisplaySignature(!displaySignature)}
         />
+      </div>
+      <div className="flex px-10">
+        <TokenValidState state={isValidToken} />
       </div>
       <div className="flex flex-wrap px-10 py-10">
         <div className="bg-red-50 flex-grow flex-shrink-0 basis-1/2">
