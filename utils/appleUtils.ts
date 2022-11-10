@@ -6,7 +6,10 @@ const appleSubtokenPaths: string[] = [
   "data.signedRenewalInfo",
 ];
 
-export const detectSubtokens = (payload: JWT.JwtPayload | string) => {
+export const detectSubtokens = (
+  payload: JWT.JwtPayload | string
+): JWT.JwtPayload[] => {
+  const result: JWT.JwtPayload[] = [];
   if (typeof payload == "object") {
     appleSubtokenPaths.map((path) => {
       const token: string = get(payload, path);
@@ -17,8 +20,11 @@ export const detectSubtokens = (payload: JWT.JwtPayload | string) => {
 
         if (decoded) {
           console.log(decoded.payload);
+          result.push(decoded.payload as JWT.JwtPayload);
         }
       }
     });
   }
+
+  return result;
 };

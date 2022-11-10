@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import JWT from "jsonwebtoken";
 
+import update from "lodash.update";
+
 import Checkbox from "components/checkbox";
 import Highlighter from "components/highlighter";
 import JwtInput from "components/jwtInput";
@@ -29,7 +31,12 @@ function JwtPage() {
       setPayload(decoded.payload);
       setSignature(decoded.signature);
       setIsValidToken(true);
-      detectSubtokens(decoded.payload);
+      const subtokens = detectSubtokens(decoded.payload);
+      // update(
+      //   decoded.payload as JWT.JwtPayload,
+      //   "data.signedTransactionInfo",
+      //   () => ({ keke: 123 })
+      // );
     } else {
       setIsValidToken(false);
     }
