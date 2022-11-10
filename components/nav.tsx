@@ -10,6 +10,9 @@ function Nav() {
       <Link className="ml-2" href="/jwt">
         JWT
       </Link>
+      <Link className="ml-2" href="/sandbox">
+        Sandbox
+      </Link>
       <div className="ml-auto"></div>
     </nav>
   );
