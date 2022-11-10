@@ -2,8 +2,8 @@ import React from "react";
 
 function Sandbox() {
   return (
-    <main className="flex justify-center items-center p-4 h-screen w-full bg-gradient-to-r from-green-100 to-blue-100">
-      <div className="bg-white w-full sm:w-1/2 lg:w-96 border border-gray-200 divide-y divide-gray-200">
+    <main className="flex justify-center items-start p-4 h-screen w-full bg-gradient-to-r from-green-100 to-blue-100">
+      <div className="bg-white w-full border border-gray-200 divide-y divide-gray-200">
         <details>
           <summary className="question py-3 px-4 cursor-pointer select-none w-full outline-none">
             How is this made?
