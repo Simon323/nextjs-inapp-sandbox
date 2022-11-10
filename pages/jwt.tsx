@@ -32,11 +32,14 @@ function JwtPage() {
       setSignature(decoded.signature);
       setIsValidToken(true);
       const subtokens = detectSubtokens(decoded.payload);
-      // update(
-      //   decoded.payload as JWT.JwtPayload,
-      //   "data.signedTransactionInfo",
-      //   () => ({ keke: 123 })
-      // );
+
+      if (subtokens) {
+        subtokens.map((x) => {
+          update(decoded.payload as JWT.JwtPayload, x.path, () => x.payload);
+        });
+      }
+
+      console.log(subtokens);
     } else {
       setIsValidToken(false);
     }
