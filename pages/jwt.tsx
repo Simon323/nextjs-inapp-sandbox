@@ -5,6 +5,7 @@ import Checkbox from "components/checkbox";
 import Highlighter from "components/highlighter";
 import JwtInput from "components/jwtInput";
 import TokenValidState from "components/tokenValidState";
+import { detectSubtokens } from "utils/appleUtils";
 
 function JwtPage() {
   const [token, setToken] = useState<string>(
@@ -28,6 +29,7 @@ function JwtPage() {
       setPayload(decoded.payload);
       setSignature(decoded.signature);
       setIsValidToken(true);
+      detectSubtokens(decoded.payload);
     } else {
       setIsValidToken(false);
     }
@@ -35,7 +37,7 @@ function JwtPage() {
 
   return (
     <div className="flex flex-col">
-      <div className="grid gap-6 md:grid-cols-3 px-10 py-10">
+      <div className="grid gap-6 md:grid-cols-3 px-10 py-5">
         <Checkbox
           name="Header"
           checked={displayHeader}
@@ -55,7 +57,7 @@ function JwtPage() {
       <div className="flex px-10">
         <TokenValidState state={isValidToken} />
       </div>
-      <div className="flex flex-wrap px-10 py-10">
+      <div className="flex flex-wrap px-10 py-5">
         <div className="bg-red-50 flex-grow flex-shrink-0 basis-1/2">
           <JwtInput token={token} onChange={setToken} />
         </div>
