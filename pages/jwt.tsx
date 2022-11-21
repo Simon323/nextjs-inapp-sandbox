@@ -12,6 +12,7 @@ import {
   getAppleTransactionInfo,
   validatePurchase,
 } from "utils/appleUtils";
+import AppleTransaction from "components/apple/appleTransaction";
 
 function JwtPage() {
   const [token, setToken] = useState<string>(
@@ -63,6 +64,14 @@ function JwtPage() {
     <div className="flex flex-col">
       <main className="flex justify-center items-start p-4 h-screen w-full bg-gradient-to-r from-green-100 to-blue-100">
         <div className="bg-white w-full border border-gray-200 divide-y divide-gray-200">
+          <details className="question py-3 px-4 cursor-pointer select-none w-full">
+            <summary>Details</summary>
+            <AppleTransaction
+              bundleId="ds"
+              environment="Sandbox"
+              originalTransactionId="test"
+            />
+          </details>
           <details open>
             <summary className="question py-3 px-4 cursor-pointer select-none w-full outline-none">
               JWT token
